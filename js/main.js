@@ -171,18 +171,28 @@ if (!isSafari) {
 	// 	environmentFrames.push(currentEnvironment);
 
 	// }
-	const sphere = new THREE.SphereGeometry( 500, 60, 40 );
+	// const sphere = new THREE.SphereGeometry( 500, 60, 40 );
 	// invert the geometry on the x-axis so that all of the faces point inward
-	sphere.scale( - 1, 1, 1 );
-	let environment = new THREE.TextureLoader().setPath("./imgs/")
-		.load("env.png", function(texture){
-			texture.colorSpace = THREE.SRGBColorSpace;
-
-		});
-	const material = new THREE.MeshBasicMaterial( { map: environment } );
-	const mesh = new THREE.Mesh( sphere, material );
-	scene.add( mesh );
-	// scene.background = environment;
+	// sphere.scale( - 1, 1, 1 );
+	// let environment = new THREE.TextureLoader().setPath("./imgs/")
+		// .load("env.png", function(texture){
+			// texture.colorSpace = THREE.SRGBColorSpace;
+// 
+		// });
+	// const material = new THREE.MeshBasicMaterial( { map: environment } );
+	// const mesh = new THREE.Mesh( sphere, material );
+	// scene.add( mesh );
+	let currentEnvironment = new THREE.CubeTextureLoader()
+			.setPath("./imgs/")
+			.load([
+				'pan_left.png',
+				'pan_right.png',
+				'pan_top.png',
+				'pan_bottom.png',
+				'pan_back.png',
+				'pan_front.png',
+			]);
+	scene.background = currentEnvironment;
 
 
 
@@ -273,10 +283,9 @@ if (!isSafari) {
 		let deltaTime = time - lastFrameTime;
 		lastFrameTime = time;
 
-		if (window.isMobile()) {
+		if (controls.update !== undefined) {
 			controls.update();
 		}
-
 		// if (playing) {
 
 		// 	currentFrameTime += deltaTime;
